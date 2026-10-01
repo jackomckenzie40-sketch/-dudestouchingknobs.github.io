@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DTK — Dudes Touching Knobs</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #080808;
+    color: #f5f5f5;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* NAV */
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 5vw;
+    background: rgba(8,8,8,.88);
+    border-bottom: 1px solid #292929;
+    backdrop-filter: blur(12px);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 1000;
+    letter-spacing: -2px;
+}
+
+.links {
+    display: flex;
+    gap: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+nav a:hover {
+    color: #ff3f9f;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 6vw 70px;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #40142e 0%,
+            #170b13 27%,
+            #080808 67%
+        );
+}
+
+.kicker {
+    color: #ff3f9f;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: 900;
+    font-size: 13px;
+}
+
+h1 {
+    font-size: clamp(60px, 14vw, 180px);
+    line-height: .78;
+    letter-spacing: -.09em;
+    margin: 30px 0;
+    font-weight: 1000;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: auto;
+    color: #cfcfcf;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 35px;
+    padding: 16px 28px;
+    background: #f5f5f5;
+    color: #080808;
+    font-weight: 1000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: .2s;
+}
+
+.button:hover {
+    background: #ff3f9f;
+    color: white;
+    transform: rotate(-2deg) scale(1.05);
+}
+
+/* SECTIONS */
+
+section {
+    padding: 120px 8vw;
+    border-top: 1px solid #292929;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+}
+
+h2 {
+    font-size: clamp(45px, 7vw, 85px);
+    line-height: .85;
+    letter-spacing: -.07em;
+}
+
+p {
+    color: #c5c5c5;
+    line-height: 1.65;
+}
+
+.card {
+    background: #0e0e0e;
+    border: 1px solid #292929;
+    padding: 30px;
+    margin-bottom: 20px;
+    transition: .2s;
+}
+
+.card:hover {
+    border-color: #ff3f9f;
+    transform: translateY(-3px);
+}
+
+.card h3 {
+    color: #ff3f9f;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* RULES */
+
+.rules {
+    counter-reset: rule;
+}
+
+.rule {
+    border-bottom: 1px solid #292929;
+    padding: 25px 0;
+}
+
+.rule::before {
+    counter-increment: rule;
+    content: "0" counter(rule);
+    color: #ff3f9f;
+    font-weight: 900;
+    margin-right: 20px;
+}
+
+.rule strong {
+    font-size: 20px;
+}
+
+/* MEMBERSHIP */
+
+.membership {
+    text-align: center;
+    max-width: 850px;
+    margin: auto;
+}
+
+.big {
+    font-size: clamp(40px, 7vw, 80px);
+    line-height: .9;
+    font-weight: 1000;
+    letter-spacing: -.06em;
+    margin: 25px 0;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 50px 8vw;
+    border-top: 1px solid #292929;
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+}
+
+/* POPUP */
+
+#popup {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #ff3f9f;
+    color: #080808;
+    padding: 20px;
+    max-width: 300px;
+    display: none;
+    z-index: 200;
+    box-shadow: 8px 8px 0 #fff;
+    font-weight: 900;
+}
+
+#popup button {
+    border: 0;
+    background: transparent;
+    font-size: 20px;
+    font-weight: 900;
+    float: right;
+    cursor: pointer;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .links {
+        display: none;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    section {
+        padding: 80px 7vw;
+    }
+
+    h1 {
+        font-size: 18vw;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- NAV -->
+
+<nav>
+
+    <a href="#top" class="logo">
+        DTK®
+    </a>
+
+    <div class="links">
+        <a href="#about">About</a>
+        <a href="#rules">Rules</a>
+        <a href="#events">Events</a>
+        <a href="#join">Join</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero" id="top">
+
+    <div>
+
+        <div class="kicker">
+            EST. WHENEVER THE BOYS GOT BORED
+        </div>
+
+        <h1>
+            DUDES<br>
+            TOUCHING<br>
+            KNOBS
+        </h1>
+
+        <p>
+            The world's most unnecessarily exclusive social club
+            for gay guys, good mates, bad decisions and anyone
+            who understands the importance of a quality knob.
+        </p>
+
+        <a href="#join" class="button">
+            REQUEST MEMBERSHIP
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="container grid">
+
+        <div>
+
+            <h2>
+                ABOUT<br>
+                DTK
+            </h2>
+
+        </div>
+
+        <div>
+
+            <p>
+                DTK is a fictional underground social club
+                dedicated to dudes, friendship, questionable
+                decisions and the responsible appreciation of knobs.
+            </p>
+
+            <br>
+
+            <p>
+                We don't do networking breakfasts.
+                We don't do corporate retreats.
+                We definitely don't do LinkedIn.
+            </p>
+
+            <br>
+
+            <div class="card">
+
+                <h3>
+                    OUR MISSION
+                </h3>
+
+                <p>
+                    Bring dudes together. Touch knobs.
+                    Have a laugh. Leave the world slightly
+                    more confused than we found it.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RULES -->
+
+<section id="rules">
+
+    <div class="container grid">
+
+        <div>
+
+            <h2>
+                THE<br>
+                RULES
+            </h2>
+
+        </div>
+
+        <div class="rules">
+
+            <div class="rule">
+                <strong>
+                    Respect the dudes.
+                </strong>
+            </div>
+
+            <div class="rule">
+                <strong>
+                    Never touch another man's knob without permission.
+                </strong>
+            </div>
+
+            <div class="rule">
+                <strong>
+                    If the knob is particularly tempting, ask first.
+                </strong>
+            </div>
+
+            <div class="rule">
+                <strong>
+                    No boring cunts.
+                </strong>
+            </div>
+
+            <div class="rule">
+                <strong>
+                    What happens at DTK remains extremely difficult to explain.
+                </strong>
+            </div>
+
+            <div class="rule">
+                <strong>
+                    Absolutely no screenshots of the group chat.
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EVENTS -->
+
+<section id="events">
+
+    <div class="container grid">
+
+        <div>
+
+            <h2>
+                CLUB<br>
+                BUSINESS
+            </h2>
+
+        </div>
+
+        <div>
+
+            <div class="card">
+
+                <h3>
+                    KNOB NIGHT™
+                </h3>
+
+                <p>
+                    Drinks. Dudes. Knobs.
+                    Very little explanation.
+                </p>
+
+                <br>
+
+                <strong>
+                    FRIDAY — 8PM
+                </strong>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    DTK GENERAL MEETING
+                </h3>
+
+                <p>
+                    A completely legitimate meeting
+                    about extremely unserious matters.
+                </p>
+
+                <br>
+
+                <strong>
+                    LOCATION: CLASSIFIED
+                </strong>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    ANNUAL KNOB INSPECTION
+                </h3>
+
+                <p>
+                    Attendance technically optional.
+                    Social pressure extremely high.
+                </p>
+
+                <br>
+
+                <strong>
+                    DATE: WHENEVER
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- JOIN -->
+
+<section id="join">
+
+    <div class="membership">
+
+        <div class="kicker">
+            MEMBERSHIP DEPARTMENT
+        </div>
+
+        <div class="big">
+            THINK YOU'VE GOT WHAT IT TAKES?
+        </div>
+
+        <p>
+            Membership applications are currently being accepted
+            from dudes, gay guys, knob enthusiasts and people who
+            have absolutely no idea what they've stumbled into.
+        </p>
+
+        <a
+            class="button"
+            href="mailto:dtk@example.com?subject=DTK%20Membership%20Application"
+        >
+            APPLY TO DTK
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <strong>
+        DTK® — DUDES TOUCHING KNOBS
+    </strong>
+
+    <br><br>
+
+    This is a fictional parody club.
+
+    <br>
+
+    Please touch knobs responsibly.
+
+</footer>
+
+
+<!-- POPUP -->
+
+<div id="popup">
+
+    <button onclick="closePopup()">
+        ×
+    </button>
+
+    <div>
+        ⚠️ KNOB ALERT
+    </div>
+
+    <br>
+
+    You've been identified as someone
+    who may be interested in DTK.
+
+</div>
+
+
+<script>
+
+function closePopup() {
+
+    document.getElementById("popup").style.display = "none";
+
+}
+
+
+setTimeout(function() {
+
+    document.getElementById("popup").style.display = "block";
+
+}, 5000);
+
+
+document.addEventListener("click", function(e) {
+
+    if (e.target.tagName === "H1") {
+
+        document.body.style.transform =
+            "rotate(" + (Math.random() * 2 - 1) + "deg)";
+
+        setTimeout(function() {
+
+            document.body.style.transform = "";
+
+        }, 250);
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
